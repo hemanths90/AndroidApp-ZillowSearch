@@ -1,0 +1,375 @@
+package com.example.zillowsearch;
+
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.app.ActionBarActivity;
+import android.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.app.ActionBar.LayoutParams;
+import android.app.FragmentTransaction;
+import android.app.ActionBar.TabListener;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.os.Build;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class ResultActivity extends ActionBarActivity  {
+
+	JSONObject jsonObject = null;
+	JSONObject jsonResult = null;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_result);
+		if (savedInstanceState == null) {
+			getSupportFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
+		
+		//TextView tv = ((TextView)findViewById(R.id.editText1));
+		//tv.setText(getIntent().getStringExtra("ResultString"));
+		String jsonString = getIntent().getStringExtra("ResultString");
+
+		
+		try {		
+			jsonObject = new JSONObject(jsonString);
+			jsonResult = jsonObject.getJSONObject("result");
+			Log.v("The first name is: ", jsonResult.getString("homedetails"));
+		}catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		
+		final TextView tv = ((TextView)findViewById(R.id.textView1));
+		//tv.setText(getIntent().getStringExtra("ResultString"));
+		final FrameLayout frame = (FrameLayout) findViewById(R.id.container);
+		
+		
+	    android.app.ActionBar myActionBar = getActionBar(); 
+	    myActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS); 
+	    
+	    android.app.ActionBar.Tab tab1 = myActionBar.newTab(); 
+	    tab1.setTabListener(
+	    		new ActionBar.TabListener()
+	    		{
+					@Override
+					public void onTabSelected(android.app.ActionBar.Tab tab,
+							FragmentTransaction ft) {
+						
+						frame.removeAllViews();
+						createTableTab1(frame, jsonResult);
+						
+						tv.setText("tab1");			
+					}
+					@Override
+					public void onTabUnselected(android.app.ActionBar.Tab tab,
+							FragmentTransaction ft) {
+						// TODO Auto-generated method stub
+						
+					}
+					@Override
+					public void onTabReselected(android.app.ActionBar.Tab tab,
+							FragmentTransaction ft) {
+						// TODO Auto-generated method stub
+						
+					} 
+	    		});
+	    tab1.setText("First Tab"); 
+	    myActionBar.addTab(tab1);
+	    
+	    
+	    
+	    
+	    
+	    
+	    android.app.ActionBar.Tab tab2 = myActionBar.newTab(); 
+	    tab2.setTabListener(
+	    	    		new ActionBar.TabListener()
+	    	    		{
+	    					@Override
+	    					public void onTabSelected(android.app.ActionBar.Tab tab,
+	    							FragmentTransaction ft) {
+	    						// TODO Auto-generated method stub
+	    						tv.setText("Tab2");
+	    						frame.removeAllViews();
+	    						createTableTab2(frame, jsonResult);
+	    					}
+	    					
+	    					@Override
+	    					public void onTabUnselected(android.app.ActionBar.Tab tab,
+	    							FragmentTransaction ft) {
+	    						// TODO Auto-generated method stub
+	    						
+	    					}
+	    					@Override
+	    					public void onTabReselected(android.app.ActionBar.Tab tab,
+	    							FragmentTransaction ft) {
+	    						// TODO Auto-generated method stub
+	    						
+	    					} 
+	    	    		});
+	    		
+	    tab2.setText("second Tab"); 
+	    myActionBar.addTab(tab2);		
+		
+		
+		
+		
+		
+		
+
+		
+	}
+	
+	
+	public void createTableTab1(FrameLayout frame, JSONObject jsonResult){
+		try {
+		ScrollView scrollView = new ScrollView(this);
+		TableLayout table = new TableLayout(this);
+	
+		DisplayMetrics tableMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(tableMetrics);
+		int width = tableMetrics.widthPixels;
+		int tableWidthFirst = (width)*3/4;
+		int tableWidthSecond = (width)/4;
+		int tableWidthHalf = (width)/2;
+		
+		TableRow[] tRow = new TableRow[30];
+        for(int i=0; i<tRow.length; i++){
+        	tRow[i] = new TableRow(this);
+        }
+        for(int i=0; i<17; i++){
+        	tRow[i].setBackgroundResource(R.layout.oddrow);
+        	i++;
+        	tRow[i].setBackgroundResource(R.layout.evenrow); 
+        }
+        
+        
+        TextView[] tElement = new TextView[40];
+        for(int i=0; i<tElement.length; i++){
+        	tElement[i] = new TextView(this);
+        	tElement[i].setPadding(5, 5, 5, 5);
+        }
+        
+
+        tElement[0].setWidth(tableWidthHalf);
+        for(int i=2; i<tElement.length; i++){
+        	tElement[i].setWidth(tableWidthFirst);
+        	i++;
+        	tElement[i].setWidth(tableWidthSecond); 
+        }
+		
+        
+        
+        
+        
+        String estimateValueChangeSign="";
+        String restimateValueChangeSign=""; 
+        
+        
+        if(jsonResult.getString("estimateValueChangeSign") == "+") {
+            estimateValueChangeSign = "<img src='"+jsonResult.getString("imgp")+"'>"; 
+        }
+        if(jsonResult.getString("estimateValueChangeSign") == "-") { 
+            estimateValueChangeSign = "<img src='"+jsonResult.getString("imgn")+"'>";
+        }
+        if(jsonResult.getString("zestimateValue") == "N/A"){
+            estimateValueChangeSign = "";
+        }
+        
+
+        if(jsonResult.getString("restimateValueChangeSign") == "+") {
+            restimateValueChangeSign = "<img src='"+jsonResult.getString("imgp")+"'>";
+        }
+        if(jsonResult.getString("restimateValueChangeSign") == "-") {
+            restimateValueChangeSign = "<img src='"+jsonResult.getString("imgn")+"'>";
+        }
+        if(jsonResult.getString("rentzestimateValue") == "N/A"){
+            restimateValueChangeSign = "";
+        }
+
+        String propertyAddress = jsonResult.getString("street")+","+jsonResult.getString("city")+","+jsonResult.getString("state")+"-"+jsonResult.getString("zipcode");
+
+        
+		tElement[0].setText("See more details on Zillow");
+        
+        tElement[1].setText(jsonResult.getString("street")+","+jsonResult.getString("city")+","+jsonResult.getString("state")+"-"+jsonResult.getString("zipcode"));       
+		
+        tElement[2].setText("Property Type");
+        tElement[3].setText(jsonResult.getString("PropertyType"));
+        
+		tElement[4].setText("Year Built");
+        tElement[5].setText(jsonResult.getString("YearBuilt")); 
+		
+        tElement[6].setText("Lot Size");
+        tElement[7].setText(jsonResult.getString("LotSize"));
+        
+		tElement[8].setText("Finished Area");
+        tElement[9].setText(jsonResult.getString("FinishedArea"));
+        
+		tElement[10].setText("Bathrooms");
+        tElement[11].setText(jsonResult.getString("bathrooms"));
+        
+		tElement[12].setText("Bedrooms");
+        tElement[13].setText(jsonResult.getString("bedrooms")); 
+        
+		tElement[14].setText("Tax Assessmet Year");
+        tElement[15].setText(jsonResult.getString("TaxAssessmentYear"));
+        
+		tElement[16].setText("Tax Assessmen");
+        tElement[17].setText(jsonResult.getString("TaxAssessment"));
+                
+        tElement[18].setText("Last Sold Price");
+        tElement[19].setText(jsonResult.getString("LastSoldPrice"));
+        
+		tElement[20].setText("Last Sold Date");
+        tElement[21].setText(jsonResult.getString("LastSoldDate")); 
+		
+        tElement[22].setText("Zestimate<sup>&reg;</sup> Property Estimate as of "+jsonResult.getString("DateZestimate"));
+        tElement[23].setText(jsonResult.getString("DateZestimateValue"));
+        
+		tElement[24].setText("30 Days Overall Change");
+        tElement[25].setText(estimateValueChangeSign+jsonResult.getString("zestimateValue"));
+        
+		tElement[26].setText("All Time Property Range");
+        tElement[27].setText(jsonResult.getString("PropertyRangeLow")+"-"+jsonResult.getString("PropertyRangeHigh")); 
+        
+		tElement[28].setText("Rent Zestimate<sup>&reg;</sup> Rent Valuation as of "+jsonResult.getString("dateRentZestimate"));
+        tElement[29].setText(jsonResult.getString("RentAmount")); 
+        
+		tElement[30].setText("30 days Rent Change");
+        tElement[31].setText(restimateValueChangeSign+jsonResult.getString("rentzestimateValue"));
+        
+		tElement[32].setText("All Time Rent Range");
+        tElement[33].setText(jsonResult.getString("RentRangeLow")+"-"+jsonResult.getString("RentRangeHigh"));
+                
+        
+        
+        
+        
+        
+        //add fb button
+        ImageButton imgbtn=new ImageButton(this);
+        imgbtn.setBackgroundResource(R.drawable.fbbutton);
+        
+        
+        tRow[0].addView(tElement[0]);
+        tRow[0].addView(imgbtn);
+        tRow[1].addView(tElement[1]);
+        
+        for(int i=2, j=2; i<18; i++){
+        	Log.v(String.valueOf(i),String.valueOf(j));
+        	tRow[i].addView(tElement[j]);
+        	j++;
+        	tRow[i].addView(tElement[j]);
+        	tElement[j].setGravity(Gravity.RIGHT);
+        	j++;
+        	//table.addView(tRow[i]);
+        }        
+ 
+        for(int i=0; i<18; i++){
+        	table.addView(tRow[i]);
+        }
+        
+        /*
+        
+		tv1.setText("tab1----1");
+		tv2.setText("tab1----2");
+		
+		
+		row.addView(tv1);
+		row.addView(tv2);
+		
+		table.addView(row);*/
+		scrollView.addView(table);
+		
+		frame.addView(scrollView);
+		//ResultActivity.this.setContentView(scrollView);
+		Log.v("element:", "kkdns");
+		}
+		catch(Exception e) {
+			
+		}
+	}
+
+	public void createTableTab2(FrameLayout frame, JSONObject jsonResult){
+		ScrollView scrollView = new ScrollView(this);
+		TableLayout table = new TableLayout(this);
+		TableRow row = new TableRow(this);
+		TextView tv1 = new TextView(this);
+		TextView tv2 = new TextView(this);
+		
+		
+		tv1.setText("tab2----1");
+		tv2.setText("tab2----2");
+		
+		
+		row.addView(tv1);
+		row.addView(tv2);
+		
+		table.addView(row);
+		scrollView.addView(table);
+		
+		
+		frame.addView(scrollView);
+		//ResultActivity.this.setContentView(scrollView);
+		Log.v("element:", "kkdns");
+		
+	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.result, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_result,
+					container, false);
+			return rootView;
+		}
+	}
+}

@@ -1,0 +1,11 @@
+1416596899103	Rename field 'textView1'
+1416598541821	Rename field 'TextView03'
+1416598555011	Rename field 'TextView02'
+1416624052676	Infer generic type arguments
+1416624060239	Infer generic type arguments
+1416631092265	Delete element
+1416631100378	Delete elements
+1416632715262	Delete elements
+1416632722500	Delete element
+1416636942114	Extracts string 'null' into R.string.ErrorMsg
+1416697476137	Extracts string 'null' into R.string.ErrorMsgBottom
