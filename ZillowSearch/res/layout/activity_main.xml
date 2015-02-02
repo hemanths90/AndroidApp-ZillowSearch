@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/chicago_skyline_479837006"
+    android:orientation="vertical" >
+
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginBottom="10dp"
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
+       android:layout_marginTop="10dp"
+       android:orientation="vertical" >
+
+		<TextView
+		    android:id="@+id/TextView01"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginBottom="20dp"
+		    android:layout_marginTop="20dp"
+		    android:text="@string/SearchLabel"
+		    android:textStyle="bold"
+		    android:textColor="#FFFFFF"
+		    android:textSize="@dimen/abc_action_bar_title_text_size" />
+		
+		<TextView
+		    android:id="@+id/streetaddress_label"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/Address"
+		    android:textColor="#FFFFFF" />
+	
+		<EditText
+		    android:id="@+id/streetAddress"
+		    android:layout_width="match_parent"
+		    android:layout_height="40dp"
+		    android:background="@drawable/textborder"
+		    android:ems="10"
+		    android:hint="@string/addresshint"
+		    android:inputType="text"
+		    android:paddingLeft="4dp"
+		    android:textColor="#4d4d4d" >
+
+		    <requestFocus />
+		</EditText>
+		<TextView
+		    android:id="@+id/errorAddress"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/ErrorMsg"
+		    android:textAppearance="?android:attr/textAppearanceSmall"
+		    android:visibility="invisible"
+		    android:textColor="#C80000" />
+		
+		<TextView
+		    android:id="@+id/city_label"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dp"
+		    android:text="@string/City"
+		    android:textColor="#FFFFFF" />
+	
+		<EditText
+		    android:id="@+id/city"
+		    android:layout_width="match_parent"
+		    android:layout_height="40dp"
+		    android:background="@drawable/textborder"
+		    android:ems="10"
+		    android:hint="@string/CityLabel"
+		    android:inputType="text"
+		    android:paddingLeft="4dp"
+		    android:textColor="#4d4d4d" >    
+		</EditText>
+		<TextView
+		    android:id="@+id/errorCity"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/ErrorMsg"
+		    android:textAppearance="?android:attr/textAppearanceSmall"
+		    android:visibility="invisible"
+		    android:textColor="#C80000" />
+	
+		<TextView
+		    android:id="@+id/state_label"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dp"
+		    android:text="@string/State"
+		    android:textColor="#FFFFFF" />
+	
+		<Spinner
+		    android:id="@+id/state"
+		    android:layout_width="match_parent"
+		    android:layout_height="40dp"
+		    android:background="@drawable/textborder"
+		    android:paddingLeft="4dp" />
+	
+		<TextView
+		    android:id="@+id/errorState"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginBottom="20dp"
+		    android:text="@string/ErrorMsg"
+		    android:textAppearance="?android:attr/textAppearanceSmall"
+		    android:textColor="#C80000"
+		    android:visibility="invisible" />
+	
+    	<RelativeLayout
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content" >
+
+			<Button
+			    android:id="@+id/submit"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:background="#C8C8C8"
+			    android:minHeight="40dp"
+			    android:minWidth="130dp"
+			    android:radius="10dp"
+			    android:text="@string/SubmitLabel"
+			    android:textColor="#000000"
+			    android:textColorHint="#000000" />
+
+			<ImageView
+			    android:id="@+id/zillowLogoIcon"
+			    android:layout_width="120dp"
+			    android:layout_height="wrap_content"
+			    android:layout_alignBottom="@+id/submit"
+			    android:layout_alignParentRight="true"
+			    android:layout_alignParentTop="true"
+			    android:radius="20dp"
+			    android:src="@drawable/zillowlogo" />
+		
+		</RelativeLayout>
+	
+			
+		<View
+				android:layout_width="fill_parent"
+				android:layout_height="1dip"
+				android:layout_marginTop="15dp"
+				android:background="#FFFFFF"/>
+	
+		<TextView
+		    android:id="@+id/ErrorMsg"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="20dp"
+		    android:text="@string/ErrorMsgBottom"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:textColor="#FFFFFF"
+		    android:textSize="20sp"
+		    android:visibility="invisible" />
+
+	</LinearLayout>
+</RelativeLayout>

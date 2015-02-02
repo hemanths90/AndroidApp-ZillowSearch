@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <string name="main_title">My Main Title</string>
+    <string name="app_name">ZillowSearch</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="AddressLabel">Street Address</string>
+    <string name="SearchLabel">Search Your Property Here</string>
+    <string name="Address">Address*:</string>
+    <string name="City">City*:</string>
+    <string name="CityLabel">City</string>
+    <string name="State">State*:</string>
+    <string name="SubmitLabel">Search</string>
+    <string name="title_activity_result">ResultActivity</string>
+    <string name="ErrorMsg">This field is required</string>
+    <string name="facebook_app_id">759639834091936</string><string name="ErrorMsgBottom">No exact match found - Verify that the given address is correct</string>
+	<string name="addresshint">Street Address</string>
+    
+
+</resources>
